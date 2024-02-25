@@ -55,9 +55,9 @@ def main():
     logging.debug(f"Applying {FILE_NAME_CONDITION_METHOD} as method to check conditions")
     logging.debug(f"Applying {FILE_NAME_ACTION_METHOD} as method to change file names")
     filename_condition_method = CONDITION_METHODS_MAPPER.get(
-        FILE_NAME_CONDITION_METHOD)
+        FILE_NAME_CONDITION_METHOD, idle_condition)
     filename_action_method = ACTION_METHODS_MAPPER.get(
-        FILE_NAME_ACTION_METHOD)
+        FILE_NAME_ACTION_METHOD, idle_action)
     for file in files_in_path:
         if filename_condition_method(file):
             new_filename = filename_action_method(file)
