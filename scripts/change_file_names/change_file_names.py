@@ -30,11 +30,7 @@ def has_digits_condition(filename:str)->bool:
 # Custom defined action methods:
 
 def no_digits_and_lowercase_action(filename:str)->str:
-    sol = ""
-    for c in filename:
-        if not c.isdigit():
-            sol += c.lower()
-    return sol
+    return "".join([c.lower() for c in filename if not c.isdigit()])
 
 # Mapper for the defined condition methods:
 CONDITION_METHODS = {
