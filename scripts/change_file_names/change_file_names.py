@@ -56,10 +56,13 @@ def main():
     for file in files_in_path:
         if filename_condition_method(file):
             new_filename = filename_action_method(file)
-            os.rename(
-                os.path.join(dirname, file),
-                os.path.join(dirname, new_filename)
-            )
+            try:
+                os.rename(
+                    os.path.join(dirname, file),
+                    os.path.join(dirname, new_filename)
+                )
+            except:
+                pass
 
 if __name__ == "__main__":
     main()
