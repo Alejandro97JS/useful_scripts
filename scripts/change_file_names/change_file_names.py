@@ -1,5 +1,7 @@
 import json, os, logging
 
+logging.getLogger().setLevel(logging.DEBUG)
+
 # Load configuration params:
 CONFIG = {}
 with open("../../config.json", mode="r", encoding="utf-8") as config_file:
