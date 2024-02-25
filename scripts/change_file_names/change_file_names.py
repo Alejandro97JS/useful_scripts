@@ -33,13 +33,13 @@ def no_digits_and_lowercase_action(filename:str)->str:
     return "".join([c.lower() for c in filename if not c.isdigit()])
 
 # Mapper for the defined condition methods:
-CONDITION_METHODS = {
+CONDITION_METHODS_MAPPER = {
     "idle": idle_condition,
     "has_digits": has_digits_condition
 }
 
 # Mapper for the defined action methods:
-ACTION_METHODS = {
+ACTION_METHODS_MAPPER = {
     "idle": idle_action,
     "no_digits_and_lowercase": no_digits_and_lowercase_action
 }
@@ -49,9 +49,13 @@ def main():
     elems_in_path = os.listdir(dirname)
     files_in_path = [f for f in elems_in_path if os.path.isfile(
         os.path.join(dirname, f))]
+    filename_condition_method = CONDITION_METHODS_MAPPER.get(
+        FILE_NAME_CONDITION_METHOD)
+    filename_action_method = ACTION_METHODS_MAPPER.get(
+        FILE_NAME_ACTION_METHOD)
     for file in files_in_path:
-        if FILE_NAME_CONDITION_METHOD(file):
-            new_filename = FILE_NAME_ACTION_METHOD(file)
+        if filename_condition_method(file):
+            new_filename = filename_action_method(file)
             os.rename(
                 os.path.join(dirname, file),
                 os.path.join(dirname, new_filename)
