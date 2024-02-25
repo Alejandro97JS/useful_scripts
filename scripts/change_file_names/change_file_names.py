@@ -1,4 +1,4 @@
-import json, os
+import json, os, logging
 
 # Load configuration params:
 CONFIG = {}
@@ -45,10 +45,15 @@ ACTION_METHODS_MAPPER = {
 }
 
 def main():
+    logging.debug("Execution has started...")
     dirname = os.path.dirname(ABS_PATH_TO_FOLDER)
+    logging.debug(f"Folder to modify is {dirname}")
     elems_in_path = os.listdir(dirname)
     files_in_path = [f for f in elems_in_path if os.path.isfile(
         os.path.join(dirname, f))]
+    logging.debug(f"{len(files_in_path)} found inside that folder")
+    logging.debug(f"Applying {FILE_NAME_CONDITION_METHOD} as method to check conditions")
+    logging.debug(f"Applying {FILE_NAME_ACTION_METHOD} as method to change file names")
     filename_condition_method = CONDITION_METHODS_MAPPER.get(
         FILE_NAME_CONDITION_METHOD)
     filename_action_method = ACTION_METHODS_MAPPER.get(
@@ -57,12 +62,15 @@ def main():
         if filename_condition_method(file):
             new_filename = filename_action_method(file)
             try:
+                logging.info(f"Changing {file} to {new_filename}")
                 os.rename(
                     os.path.join(dirname, file),
                     os.path.join(dirname, new_filename)
                 )
-            except:
-                pass
+            except Exception as e:
+                logging.warning(f"Exception changing file name: {e}\n" + 
+                    "Continuing with the rest of the files...")
+    logging.debug("Execution ends!")
 
 if __name__ == "__main__":
     main()
