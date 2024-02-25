@@ -1,4 +1,4 @@
-import json
+import json, os
 
 # Load configuration params:
 CONFIG = {}
@@ -45,7 +45,17 @@ ACTION_METHODS = {
 }
 
 def main():
-    pass # TODO: NOT IMPLEMENTED YET.
+    dirname = os.path.dirname(ABS_PATH_TO_FOLDER)
+    elems_in_path = os.listdir(dirname)
+    files_in_path = [f for f in elems_in_path if os.path.isfile(
+        os.path.join(dirname, f))]
+    for file in files_in_path:
+        if FILE_NAME_CONDITION_METHOD(file):
+            new_filename = FILE_NAME_ACTION_METHOD(file)
+            os.rename(
+                os.path.join(dirname, file),
+                os.path.join(dirname, new_filename)
+            )
 
 if __name__ == "__main__":
     main()
