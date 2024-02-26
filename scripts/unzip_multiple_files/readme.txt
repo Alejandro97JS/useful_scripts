@@ -2,7 +2,7 @@ Script to extract all zip files from a folder, and join all extracted files behi
 
 It loops through all files of a given directory.
 If the current file is a .zip file, the script extracts it and sends the output files to a common output folder.
-All files inside inner folders will be flattened at the same level (output folder).
+All files inside inner folders will be flattened at the same level (output folder), and the empty inner folders will be removed.
 
 If there are conflicts among file names, the file will be saved with an integer at the end of the file name.
 (With a maximum of 5 files with the same initial name)
