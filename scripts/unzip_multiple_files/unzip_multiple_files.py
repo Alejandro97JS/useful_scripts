@@ -16,9 +16,9 @@ FILENAME_MAX_RETRIES = 5
 
 def append_retry(filename:str, retry_num:int)->str:
     filename_split = filename.split(".")
-    extension = filename[-1]
+    extension = filename_split[-1]
     base_filename = "".join(filename_split[:-1])
-    return base_filename + "_" + str(retry_num) + extension
+    return base_filename + "_" + str(retry_num) + "." + extension
 
 def recursively_send_files_to_root(current_abs_path:str, destination_abs_path:str)->None:
     dirname = os.path.dirname(current_abs_path)
